@@ -1,33 +1,35 @@
 package shop.ui.generic;
 
-public abstract class UITemplate<U,V> {
-	private final U heading;
-	private final UtilPair<U,V>[] options;
+public abstract class UITemplate<V> {
+	private final String heading;
+	private final UtilPair<String, V>[] options;
 	
-	UITemplate(U heading, UtilPair<U,V>[] options) {
+	final static class UtilPair<U,V> {
+		private final U prompt;
+		private final V operation;
+		UtilPair(U _prompt, V _operation) {
+			prompt = _prompt;
+			operation = _operation;
+		}
+		
+		U getPrompt() { return prompt; }
+		V getOperation() { return operation; }
+	}
+	
+	UITemplate(String heading, UtilPair<String, V>[] options) {
 		this.heading = heading;
 		this.options = options;
 	}
+
 	public int size() {
 		return options.length;
 	}
-	public U getHeading() {
+
+	public String getHeading() {
 		return heading;
 	}
-	public U getPrompt(int i) {
+
+	public String getPrompt(int i) {
 		return options[i].getPrompt();
 	}
-	
-	/* below are the two methods from UIForm & UIMenu respectively (top to bottom) */
-	
-//	public boolean checkInput(int i, U input) {
-//		if (null == options[i]) {
-//			return true;
-//		}
-//		return options[i].operation.run(input);
-//	}
-//	public void runAction(int i) {
-//	    _menu[i].action.run();
-//	  }
-	
 }
