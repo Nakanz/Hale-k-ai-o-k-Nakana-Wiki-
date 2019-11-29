@@ -83,7 +83,7 @@ final class InventorySet implements Inventory {
 		if (video == null || change == 0)
 			throw new IllegalArgumentException();
 
-		RecordObj r = (RecordObj) _data.get(video);
+		RecordObj r = (RecordObj) _data.get(video); 
 		if (r == null && change < 1) {
 			throw new IllegalArgumentException();
 		} else if (r == null) {
