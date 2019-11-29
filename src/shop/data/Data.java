@@ -1,5 +1,7 @@
 package shop.data;
 
+import java.util.HashSet;
+
 import shop.command.RerunnableCommand;
 import shop.command.UndoableCommand;
 
@@ -7,6 +9,7 @@ import shop.command.UndoableCommand;
  * A static class for accessing data objects.
  */
 public class Data {
+	static HashSet<VideoObj> existingVideoSet = new HashSet<VideoObj>();
   private Data() {}
   /**
    * Returns a new Inventory.
@@ -22,7 +25,19 @@ public class Data {
    */
   static public Video newVideo(String title, int year, String director) {
     // TODO
-	  return new VideoObj(title, year, director);
+  	VideoObj videoObj = new VideoObj(title, year, director);
+  	if (!existingVideoSet.contains(videoObj)) {
+  		return videoObj;
+  	}
+  	
+	  for (VideoObj v : existingVideoSet) {
+	  	if (v.equals(videoObj)) {
+	  		videoObj = v;
+	  		break;
+	  	}
+	  }
+	  return videoObj;
+	  
   }
 
   /**
